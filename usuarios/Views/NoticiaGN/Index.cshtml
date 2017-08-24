@@ -1,0 +1,81 @@
+﻿@model usuarios.Models.Busqueda
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Noticias Ganaderia";
+}
+<div style="border-bottom:1px solid #bbb"><h1>Mis noticias: </h1></div>
+@using (Html.BeginForm("Index", "NoticiaGN", FormMethod.Get))
+{
+    <table style="border:0px; width:500px;">
+        <tr>
+            <td>
+                <div class="editor-label" style="margin-left:5px">
+                    @Html.LabelFor(model => model.campaña)
+                </div>
+
+                <div class="list-inline" style="margin-left:5px">
+                    @Html.DropDownListFor(model => model.campaña, new SelectList(Model.campañasGN, "Value", "Text"))
+                </div>
+            </td>
+            <td>
+                <div class="editor-label" style="margin-left:5px">
+                    @Html.LabelFor(model => model.mes)
+                </div>
+
+                <div class="list-inline" style="margin-left:5px">
+                    @Html.DropDownListFor(model => model.mes, new SelectList(Model.mesesAño, "Value", "Text"))
+                </div>
+            </td>
+            <td>
+                <div class="editor-label" style="margin-left:5px">
+                    <label>           </label>
+                </div>
+                <div class="editor-field" style="margin-left:5px">
+                    <input name="botonbuscar" type="submit" value="Buscar" class="btn-primary" />
+                </div>
+            </td>
+        </tr>
+    </table>
+}
+   
+
+
+@{
+    var noticias = Model.listn.ToList();
+}
+
+<div class="panel-body">
+
+    <div class="col-md-12" style="margin-top:15px;">
+        @foreach (var noti in noticias)
+        {
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><a href="@noti.link" target="_blank">@noti.titulo</a></h3>
+                    </div>
+                    <div class="panel-body">
+                        <img src="@noti.imagen" style="width:300px;" />
+                        <p></p>
+                        @{
+                            var etiquetas1 = noti.etiquetas.Split(',');
+                            foreach (var etiqueta in etiquetas1)
+                            {
+                                if (etiqueta != "")
+                                {
+                                    <a href="@Url.Action("Buscar", "NoticiaAG", new { etiqueta=etiqueta})"><span class="label label-info">@etiqueta</span></a>
+                                }
+                            }
+                        }
+                        <p></p>
+                        <a href="@Url.Action("BuscarF","NoticiaAG", new { mes = noti.numMes, año =noti.año})"><span class="label label-success">@noti.fecha</span></a>
+                    </div>
+                </div>
+            </div>
+                            }
+    </div>
+</div>
+
+Pagina @(Model.listn.PageCount < Model.listn.PageNumber ? 0 : Model.listn.PageNumber) of @Model.listn.PageCount
+@Html.PagedListPager(Model.listn, page => Url.Action("Index", new { page,Model }))
+

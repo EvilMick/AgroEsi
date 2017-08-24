@@ -1,0 +1,39 @@
+﻿@model List<usuarios.Models.Noticia>
+@{
+    ViewBag.Title = "Buscador";
+}
+
+<h2>Resultados de la busqueda: </h2>
+
+<div class="panel-body">
+   
+        <div class="col-md-12" style="margin-top:15px;">
+           @foreach (var noti in Model)
+           {
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><a href="@noti.link" target="_blank">@noti.titulo</a></h3>
+                    </div>
+                    <div class="panel-body">
+                        <img src="@noti.imagen" style="width:300px;" />
+                        <p></p>
+                        @{
+                            var etiquetas1 = noti.etiquetas.Split(',');
+                            foreach (var etiqueta in etiquetas1)
+                            {
+                                if (etiqueta != "")
+                                {
+                                    <a href="@Url.Action("Buscar", "NoticiaAG", new { etiqueta=etiqueta})"><span class="label label-info">@etiqueta</span></a>
+                                }
+                            }
+                        }
+                        <p></p>
+                        <a href="@Url.Action("BuscarF","NoticiaAG", new { mes = noti.numMes, año =noti.año})"><span class="label label-success">@noti.fecha</span></a>
+                    </div>
+                </div>
+
+            }
+        </div>    
+</div>
+
+

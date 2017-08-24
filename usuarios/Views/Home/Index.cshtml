@@ -1,0 +1,44 @@
+﻿@model usuarios.Models.Busqueda
+
+@{
+    ViewBag.Title = "Página Principal";
+}
+<div class="jumbotron" style="background-color:white">
+    <img src="~/Content/Inicio1.png" width="1000" height="400"/>
+</div>
+
+<div class="well well-lg">
+    <h3>AgroEsi, tu herramienta para poder estar al tanto de todo lo que sucede fuera de tu negocio.</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Últimos titulares:</h2>
+    </div>
+    <div class="col-md-4">
+        <h2>Agricultura</h2>
+        <div class="list-group">
+            @foreach (var noticia in Model.noticiasAG)
+            {
+                <a href="@noticia.link" target="_blank" class="list-group-item">
+                    <h4 class="list-group-item-heading">@noticia.titulo</h4>
+                </a>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        <h2>Ganadería</h2>
+        <div class="list-group">
+            @foreach (var noticia in Model.noticiasGN)
+            {
+                <a href="@noticia.link" target="_blank" class="list-group-item">
+                    <h4 class="list-group-item-heading">@noticia.titulo</h4>
+                </a>
+
+            }
+        </div>
+
+    </div>
+</div>

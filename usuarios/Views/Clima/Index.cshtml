@@ -1,0 +1,131 @@
+﻿@model usuarios.Models.Busqueda
+@using Chart.Mvc.ComplexChart;
+@using Chart.Mvc.Extensions;
+
+@{
+    ViewBag.Title = "Datos Climáticos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/Chart.js"></script>
+<script src="~/Scripts/Chart.js"></script>
+
+@using (Html.BeginForm("Index", "Clima", FormMethod.Get))
+{
+    @Html.ValidationSummary(false)
+    <div style="border-bottom:1px solid #bbb"><h1>Datos climáticos: </h1></div>
+    <table style="border:0px; width:500px;">
+        <tr>
+            <td>
+                <div class="editor-label" style="margin-left:5px">
+                    @Html.LabelFor(model => model.campaña)
+                </div>
+                <div class="list-inline" style="margin-left:5px">
+                    @Html.DropDownListFor(model => model.campaña, new SelectList(Model.añosClima, "Value", "Text"))
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    <input name="botonbuscar" type="submit" value="Buscar" class="btn-primary" />
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    var barChart = new BarChart();
+    barChart.ChartConfiguration.ScaleBeginAtZero = false;
+    barChart.ChartConfiguration.ScaleGridLineColor = "rgba(0, 0, 0, 0.3)";
+    barChart.ComplexData.Labels.AddRange(Model.fechas);
+    barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
+                             {
+                                new ComplexDataset
+                                    {
+                                        Data = Model.lluvias,
+                                        FillColor = "rgba(102, 51, 153,1)",
+                                        StrokeColor = "rgba(220,220,220,1)",
+                                        PointColor = "rgba(220,220,220,1)",
+                                        PointStrokeColor = "#fff",
+                                        PointHighlightFill = "#fff",
+                                        PointHighlightStroke = "rgba(220,220,220,1)",
+                                    }
+                            });
+
+    var lineChart = new LineChart();
+    lineChart.ChartConfiguration.ScaleGridLineColor = "rgba(0, 0, 0, 0.3)";
+    lineChart.ComplexData.Labels.AddRange(Model.fechas);
+    lineChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
+                             {
+                                new ComplexDataset
+                                    {
+                                        Data = Model.temp,
+                                        FillColor = "rgba(255, 255, 255, 0)",
+                                        StrokeColor = "rgba(0, 0, 0, 1)",
+                                        PointColor = "rgba(240, 20, 159,1)",
+                                        PointStrokeColor = "#fff",
+                                        PointHighlightFill = "#fff",
+                                        PointHighlightStroke = "rgba(220,220,220,1)",
+                                    }
+                            });
+    <div class="panel-body">
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+            <script type='text/javascript' src='http://www.aemet.es/es/eltiempo/prediccion/municipios/launchwidget/ciudad-real-id13034?w=g4p01110001ohmffffffw890z190x4f86d9t95b6e9r1s8n2'></script><noscript><a target='_blank' style='font-weight: bold;font-size: 1.20em;' href='http://www.aemet.es/es/eltiempo/prediccion/municipios/ciudad-real-id13034'>El Tiempo. Consulte la predicción de la AEMET para Ciudad Real</a></noscript>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-5" style="margin-left:20px">
+                <h3>Precipitaciones:</h3>
+            </div>
+            <div class="col-md-5" style="margin-left:40px">
+                <h3>Temperatura:</h3>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-5">
+                <canvas width="480" height="350" id="left"></canvas>
+                @Html.CreateChart("left", barChart)
+            </div>
+            <div class="col-md-5">
+                <canvas width="500" height="350" id="center" style="margin-left:45px"></canvas>
+                @Html.CreateChart("center", lineChart)
+            </div>
+            <div class="col-md-12" style="margin-bottom:15px"></div>
+            @if (Model.datosClimaticos != null)
+            {
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mes</th>
+                            <th title="Temperatura Media">T(°C)</th>
+                            <th title="Temperatura Máxima">TM(°C)</th>
+                            <th title="Temperatura Mínima">Tm(°C)</th>
+                            <th title="Presión Atmosférica">P.Atm(hPa)</th>
+                            <th title="Humedad">H(%)</th>
+                            <th title="Cantidad de lluvia">PP(mm)</th>
+                            <th title="Visibilidad">V(Km)</th>
+                            <th title="Velocidad media del viento">Vm(Km/h)</th>
+                            <th title="Velocidad máxima del viento">VM(Km/h)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var clima in Model.datosClimaticos)
+                        {
+                            <tr class="info">
+                                <td align="center">@clima.nomMes</td>
+                                <td align="right">@clima.Tmedia</td>
+                                <td align="right">@clima.Tmax</td>
+                                <td align="right">@clima.Tmin</td>
+                                <td align="right">@clima.PresionATM</td>
+                                <td align="right">@clima.Humedad</td>
+                                <td align="right">@clima.Lluvia</td>
+                                <td align="right">@clima.Visibilidad</td>
+                                <td align="right">@clima.VelocidadMed</td>
+                                <td align="right">@clima.VelocidadMax</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            }
+        </div>
+    </div>
+
+}
