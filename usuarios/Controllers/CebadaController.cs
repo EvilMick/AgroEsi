@@ -34,7 +34,7 @@ namespace usuarios.Controllers
                                                                 bs => bs.Term(p => p.fuente, busqueda.lonja.ToLower()),
                                                                 bs => bs.Term(p => p.nomMes, busqueda.mes)
                                                                 ))));
-                                                                
+
 
                 if (filtro.Hits.Count == 0)
                 {

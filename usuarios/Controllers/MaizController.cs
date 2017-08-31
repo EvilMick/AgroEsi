@@ -20,7 +20,27 @@ namespace usuarios.Controllers
 
             if (!string.IsNullOrEmpty(busqueda.botonbuscar))
             {
-                var filtro = elasticClient.Search<Precio>(s => s
+                ISearchResponse<Precio> filtro;
+                if (busqueda.campaña=="2017")
+                {
+                    filtro = elasticClient.Search<Precio>(s => s
+                                                         .Index("agroesi")
+                                                         .Type("precio")
+                                                         .Size(26)
+                                                         .Sort(ss => ss.Ascending(p => p.fecha))
+                                                         .Query(q => q
+                                                         .Bool(qb => qb
+                                                         .Must(
+                                                                bs => bs.Term(p => p.codigo, "mz"),
+                                                                bs => bs.Term(p => p.año, System.Convert.ToInt16(busqueda.campaña)),
+                                                                bs => bs.Term(p => p.tipoPrecio, "max"),
+                                                                bs => bs.Term(p => p.fuente, "albacete"),
+                                                                bs => bs.Term(p => p.nomMes, busqueda.mes)
+                                                                ))));
+                }
+                else
+                {
+                    filtro = elasticClient.Search<Precio>(s => s
                                                          .Index("agroesi")
                                                          .Type("precio")
                                                          .Size(26)
@@ -34,6 +54,8 @@ namespace usuarios.Controllers
                                                                 bs => bs.Term(p => p.fuente, busqueda.lonja.ToLower()),
                                                                 bs => bs.Term(p => p.nomMes, busqueda.mes)
                                                                 ))));
+                }
+                
 
                 if (filtro.Hits.Count == 0)
                 {
@@ -97,7 +119,7 @@ namespace usuarios.Controllers
                 busqueda.maxHistorico = maxymin.Hits.First().Source;
                 busqueda.minHistorico = maxymin.Hits.Last().Source;
                 busqueda.actual = ultimo_precio.Hits.First().Source;
-                busqueda.numCampañas = 6;
+                busqueda.numCampañas = 7;
                 busqueda.fechas = fechas;
                 busqueda.estats = estadisticas;
 
@@ -132,8 +154,8 @@ namespace usuarios.Controllers
                                                          .Bool(qb => qb
                                                          .Must(
                                                                 bs => bs.Term(p => p.codigo, "mz"),
-                                                                bs => bs.Term(p => p.año, 2011),
-                                                                bs => bs.Term(p => p.tipoPrecio, "med")
+                                                                bs => bs.Term(p => p.año, 2017),
+                                                                bs => bs.Term(p => p.tipoPrecio, "max")
                                                                 ))));
 
                 var estats = elasticClient.Search<Estadistica>(s => s
@@ -166,7 +188,7 @@ namespace usuarios.Controllers
                 busqueda.maxHistorico = maxymin.Hits.First().Source;
                 busqueda.minHistorico = maxymin.Hits.Last().Source;
                 busqueda.actual = ultimo_precio.Hits.First().Source;
-                busqueda.numCampañas = 6;
+                busqueda.numCampañas = 7;
                 busqueda.precios = numeros;
                 busqueda.resultados = precios;
                 busqueda.fechas = fechas;

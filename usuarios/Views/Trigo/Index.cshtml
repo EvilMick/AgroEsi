@@ -35,7 +35,7 @@
         <tr>
             <td>
                 <div class="list-inline" style="margin-bottom:60px">
-                    @Html.DropDownListFor(model => model.campaña, new SelectList(Model.campañasmtc, "Value", "Text"))
+                    @Html.DropDownListFor(model => model.campaña, new SelectList(Model.campañasT, "Value", "Text"))
                 </div>
             </td>
             <td></td>
@@ -110,7 +110,7 @@
                                     }
                             });
     <div class="panel-body">
-        <div class="col-md-3" title="Campañas: 2011-2016">
+        <div class="col-md-3" title="Campañas: 2011-2017">
             <div class="well" style="background-color:white">
                 <h2 class="text-center"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> @Model.numCampañas</h2>
                 <h4 class="text-center">Número de campañas</h4>
@@ -139,9 +139,9 @@
                 <h3>Evolución de precios:</h3>
             </div>
             <div class="col-md-5" style="margin-top:30px">
-                <div class="col-md-3" style="background-color:rgba(240, 20, 159,1)"> <strong>T. Blando</strong> </div>
+                <div class="col-md-3" style="background-color:rgba(240, 20, 159,1); color:white"> <strong>T. Blando</strong> </div>
                 <div class="col-md-2"></div>
-                <div class="col-md-3" style="background-color:rgba(20, 119, 240, 1)"> <strong>T. Duro</strong> </div>
+                <div class="col-md-3" style="background-color:rgba(20, 119, 240, 1); color:white"> <strong>T. Duro</strong> </div>
             </div>
         </div>
         <div class="col-md-12">

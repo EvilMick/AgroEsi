@@ -35,16 +35,40 @@ namespace usuarios.Models
         public IPagedList<Noticia> listn { get; set; }
         public string lonja { get; set; }
 
-        public List<SelectListItem> campañasMTC = new List<SelectListItem>();
-        public List<SelectListItem> campañasmtc
+        public List<SelectListItem> campañasMaiz = new List<SelectListItem>();
+        public List<SelectListItem> campañasM
         {
             get
             {
-                for(int i = 2016; i >2010; i--)
+                for(int i = 2017; i >2010; i--)
                 {
-                    campañasMTC.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+                    campañasMaiz.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
                 }
-                return campañasMTC;
+                return campañasMaiz;
+            }
+        }
+        public List<SelectListItem> campañasTrigo = new List<SelectListItem>();
+        public List<SelectListItem> campañasT
+        {
+            get
+            {
+                for (int i = 2017; i > 2010; i--)
+                {
+                    campañasTrigo.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+                }
+                return campañasTrigo;
+            }
+        }
+        public List<SelectListItem> campañasCebada = new List<SelectListItem>();
+        public List<SelectListItem> campañasC
+        {
+            get
+            {
+                for (int i = 2016; i > 2010; i--)
+                {
+                    campañasCebada.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+                }
+                return campañasCebada;
             }
         }
         public List<SelectListItem> campañasArroz = new List<SelectListItem>();
