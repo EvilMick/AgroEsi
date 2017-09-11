@@ -106,7 +106,7 @@ namespace usuarios.Controllers
                                                                 .Index("rss")
                                                                 .Type("noticia")
                                                                 .Size(12)
-                                                                .Sort(s => s.Ascending(sn => sn.fecha))
+                                                                .Sort(s => s.Descending(sn => sn.fecha))
                                                                 .Query(q => q
                                                                 .Bool(qb => qb
                                                                 .Must(

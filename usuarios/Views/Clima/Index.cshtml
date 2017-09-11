@@ -13,7 +13,7 @@
 {
     @Html.ValidationSummary(false)
     <div style="border-bottom:1px solid #bbb"><h1>Datos climáticos: </h1></div>
-    <table style="border:0px; width:500px;">
+    <table style="border:0px; width:300px;">
         <tr>
             <td>
                 <div class="editor-label" style="margin-left:5px">
@@ -21,11 +21,7 @@
                 </div>
                 <div class="list-inline" style="margin-left:5px">
                     @Html.DropDownListFor(model => model.campaña, new SelectList(Model.añosClima, "Value", "Text"))
-                </div>
-            </td>
-            <td>
-                <div class="editor-field">
-                    <input name="botonbuscar" type="submit" value="Buscar" class="btn-primary" />
+                    <input name="botonbuscar" type="submit" value="Buscar" class="btn-primary" style="margin-left:20px"/>
                 </div>
             </td>
         </tr>

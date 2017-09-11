@@ -6,32 +6,19 @@
 <div style="border-bottom:1px solid #bbb"><h1>Mis noticias: </h1></div>
 @using (Html.BeginForm("Index", "NoticiaAG", FormMethod.Get))
 {
-    <table style="border:0px; width:500px;">
+    <table style="border:0px; width:380px;">
         <tr>
             <td>
-                <div class="editor-label" style="margin-left:5px">
+                <div class="editor-label" style="margin-left:5px; margin-top:20px">
                     @Html.LabelFor(model => model.campaña)
-                </div>
-
-                <div class="list-inline" style="margin-left:5px">
                     @Html.DropDownListFor(model => model.campaña, new SelectList(Model.campañasAG, "Value", "Text"))
                 </div>
             </td>
             <td>
-                <div class="editor-label" style="margin-left:5px">
+                <div class="editor-label" style="margin-top:17px">
                     @Html.LabelFor(model => model.mes)
-                </div>
-
-                <div class="list-inline" style="margin-left:5px">
                     @Html.DropDownListFor(model => model.mes, new SelectList(Model.mesesAño, "Value", "Text"))
-                </div>
-            </td>
-            <td>
-                <div class="editor-label" style="margin-left:5px">
-                    <label>           </label>
-                </div>
-                <div class="editor-field" style="margin-left:5px">
-                    <input name="botonbuscar" type="submit" value="Buscar" class="btn-primary" />
+                    <input name="botonbuscar" type="submit" value="Buscar" class="btn-primary" style="margin-left:10px" />
                 </div>
             </td>
         </tr>
@@ -74,6 +61,6 @@
     </div>
 </div>
 
-Pagina @(Model.listn.PageCount < Model.listn.PageNumber ? 0 : Model.listn.PageNumber) of @Model.listn.PageCount
+Pagina @(Model.listn.PageCount < Model.listn.PageNumber ? 0 : Model.listn.PageNumber) de @Model.listn.PageCount
 @Html.PagedListPager(Model.listn, page => Url.Action("Index", new { page, Model }))
 

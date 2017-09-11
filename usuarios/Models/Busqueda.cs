@@ -17,6 +17,8 @@ namespace usuarios.Models
         public string botonbuscar { get; set; }
         public List<Precio> resultados { get; set; }
         public List<double> precios { get; set; }
+        public List<double> preciosMax { get; set; }
+        public List<double> preciosMin { get; set; }
         public List<double> numerosD { get; set; }
         public List<double> preciosI { get; set; }
         public List<double> preciosJ { get; set; }
@@ -28,6 +30,8 @@ namespace usuarios.Models
         public Precio actual { get; set; }
         public int numCampañas { get; set; }
         public List<string> fechas { get; set; }
+        public List<string> fechasMax { get; set; }
+        public List<string> fechasMin { get; set; }
         public List<Estadistica> estats { get; set; }
         public List<Clima> datosClimaticos { get; set; }
         public List<double> lluvias { get; set;}

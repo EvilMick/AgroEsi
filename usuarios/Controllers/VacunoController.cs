@@ -70,14 +70,24 @@ namespace WebAgroEsi.Controllers
                                                         .Type("precio")
                                                         .Size(10000)
                                                         .Sort(ss => ss.Descending(p => p.precio))
-                                                        .Query(q => q.Term(p => p.codigo, busqueda.producto.ToLower())));
+                                                        .Query(q => q
+                                                        .Bool(qb => qb
+                                                        .Must(
+                                                                bs => bs.Term(p => p.codigo, busqueda.producto.ToLower()),
+                                                                bs => bs.Range(c => c.Field(p => p.precio).GreaterThan(0).Relation(RangeRelation.Within))
+                                                         ))));
 
                 var ultimo_precio = elasticClient.Search<Precio>(s => s
                                                         .Index("agroesi")
                                                         .Type("precio")
                                                         .Size(10000)
                                                         .Sort(ss => ss.Descending(p => p.fecha))
-                                                        .Query(q => q.Term(p => p.codigo, busqueda.producto.ToLower())));
+                                                        .Query(q => q
+                                                        .Bool(qb => qb
+                                                        .Must(
+                                                                bs => bs.Term(p => p.codigo, busqueda.producto.ToLower()),
+                                                                bs => bs.Range(c => c.Field(p => p.precio).GreaterThan(0).Relation(RangeRelation.Within))
+                                                         ))));
 
                 foreach (var hit in result.Hits)
                 {
@@ -111,14 +121,24 @@ namespace WebAgroEsi.Controllers
                                                         .Type("precio")
                                                         .Size(10000)
                                                         .Sort(ss => ss.Descending(p => p.precio))
-                                                        .Query(q => q.Term(p => p.codigo, "TO200C1".ToLower())));
+                                                        .Query(q => q
+                                                        .Bool(qb => qb
+                                                        .Must(
+                                                                bs => bs.Term(p => p.codigo, "TO200C1".ToLower()),
+                                                                bs => bs.Range(c => c.Field(p => p.precio).GreaterThan(0).Relation(RangeRelation.Within))
+                                                         ))));
 
                 var ultimo_precio = elasticClient.Search<Precio>(s => s
                                                         .Index("agroesi")
                                                         .Type("precio")
                                                         .Size(10000)
                                                         .Sort(ss => ss.Descending(p => p.fecha))
-                                                        .Query(q => q.Term(p => p.codigo, "TO200C1".ToLower())));
+                                                        .Query(q => q
+                                                        .Bool(qb => qb
+                                                        .Must(
+                                                                bs => bs.Term(p => p.codigo, "TO200C1".ToLower()),
+                                                                bs => bs.Range(c => c.Field(p => p.precio).GreaterThan(0).Relation(RangeRelation.Within))
+                                                         ))));
 
                 var cargaIncial = elasticClient.Search<Precio>(s => s
                                                          .Index("agroesi")
@@ -130,7 +150,8 @@ namespace WebAgroEsi.Controllers
                                                          .Must(
                                                                 bs => bs.Term(p => p.codigo, "TO200C1".ToLower()),
                                                                 bs => bs.Term(p => p.año, 2017),
-                                                                bs => bs.Term(p => p.nomMes, "julio")
+                                                                bs => bs.Term(p => p.nomMes, "agosto"),
+                                                                bs => bs.Range(c => c.Field(p => p.precio).GreaterThan(0).Relation(RangeRelation.Within))
                                                                 ))));
 
                 foreach (var hit in cargaIncial.Hits)

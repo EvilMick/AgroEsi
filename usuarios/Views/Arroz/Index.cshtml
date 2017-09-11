@@ -14,42 +14,49 @@
 {
     @Html.ValidationSummary(false)
     <div style="border-bottom:1px solid #bbb"><h1>Arroz: </h1></div>
-    <table style="border:0px; width:500px;">
+    <table style="border:0px; width:440px;">
         <tr>
             <td>
-                <div class="editor-label" style="margin-left:5px">
+                <div class="editor-label">
                     @Html.LabelFor(model => model.campaña)
                 </div>
-                <div class="list-inline" style="margin-left:5px">
-                    @Html.DropDownListFor(model => model.campaña, new SelectList(Model.campañasA, "Value", "Text"))
+            </td>
+            <td></td>
+            <td>
+                <div class="editor-label" style="margin-left:15px">
+                    @Html.LabelFor(model => model.mes)
                 </div>
             </td>
             <td>
-                <div class="editor-label" style="margin-left:5px">
-                    @Html.LabelFor(model => model.mes)
+                <div class="editor-label" style="margin-left:15px">
+                    <h4>Variedades: </h4>
                 </div>
-                <div class="list-inline" style="margin-left:5px">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="list-inline" style="margin-bottom:60px">
+                    @Html.DropDownListFor(model => model.campaña, new SelectList(Model.campañasA, "Value", "Text"))
+                </div>
+            </td>
+            <td></td>
+            <td>
+                <div class="list-inline" style="margin-bottom:60px">
                     @Html.DropDownListFor(model => model.mes, new SelectList(Model.mesesAño, "Value", "Text"))
                 </div>
             </td>
             <td>
-                <div class="editor-label" style="margin-left:5px">
-                    <h4>Indica</h4>
+                <div class="editor-label" style="margin-bottom:70px; margin-left:10px">
+                    <h4>Japónica @Html.RadioButtonFor(model => model.variedad, "Japonica")</h4>
                 </div>
-                <div class="editor-field" style="margin-left:5px">
-                    @Html.RadioButtonFor(model => model.variedad, "Indica")
+            </td>
+            <td style="width:80px">
+                <div class="editor-label" style="margin-bottom:70px">
+                    <h4>Índica @Html.RadioButtonFor(model => model.variedad, "Indica")</h4>
                 </div>
             </td>
             <td>
-                <div class="editor-label" style="margin-left:5px">
-                    <h4>Japonica</h4>
-                </div>
-                <div class="editor-field" style="margin-left:5px">
-                    @Html.RadioButtonFor(model => model.variedad, "Japonica")
-                </div>
-            </td>
-            <td>
-                <div class="editor-field" style="margin-left:5px">
+                <div class="editor-field" style="margin-bottom:70px; margin-top:10px">
                     <input name="botonbuscar" type="submit" value="Buscar" class="btn-primary" />
                 </div>
             </td>

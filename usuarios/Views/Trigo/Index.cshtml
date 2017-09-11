@@ -13,7 +13,7 @@
 {
     @Html.ValidationSummary(false)
     <div style="border-bottom:1px solid #bbb"><h1>Trigo: </h1></div>
-    <table style="border:0px; width:500px;">
+    <table style="border:0px; width:440px;">
         <tr>
             <td>
                 <div class="editor-label">
@@ -29,7 +29,7 @@
             <td>
                 <div class="editor-label" style="margin-left:15px">
                     <h4>Variedades: </h4>
-                </div>                
+                </div>
             </td>
         </tr>
         <tr>
@@ -49,13 +49,13 @@
                     <h4>Blando @Html.RadioButtonFor(model => model.variedad, "Blando")</h4>
                 </div>
             </td>
-            <td style="width:113px">
-                <div class="editor-label" style="margin-bottom:70px; width:113px">
+            <td style="width:80px">
+                <div class="editor-label" style="margin-bottom:70px">
                     <h4>Duro @Html.RadioButtonFor(model => model.variedad, "Duro")</h4>
                 </div>
             </td>
             <td>
-                <div class="editor-field" style="margin-left:5px; margin-bottom:70px;">
+                <div class="editor-field" style="margin-bottom:70px; margin-top:8px">
                     <input name="botonbuscar" type="submit" value="Buscar" class="btn-primary" />
                 </div>
             </td>

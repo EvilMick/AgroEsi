@@ -15,9 +15,11 @@ namespace WebAgroEsi.Controllers
         public ActionResult Index(Busqueda busqueda)
         {
             List<Precio> precios = new List<Precio>();
-            List<double> numeros = new List<double>();
+            List<double> numerosMax = new List<double>();
+            List<double> numerosMin = new List<double>();
             List<Noticia> noticias = new List<Noticia>();
-            List<string> fechas = new List<string>();
+            List<string> fechasMax = new List<string>();
+            List<string> fechasMin = new List<string>();
             string prod = null;
             string var = null;
             if (!string.IsNullOrEmpty(busqueda.botonbuscar))
@@ -90,18 +92,26 @@ namespace WebAgroEsi.Controllers
                     p.fecha = hit.Source.fecha;
                     p.tipoPrecio = hit.Source.tipoPrecio;
                     precios.Add(p);
-                    numeros.Add(p.precio);
-                    fechas.Add(p.fecha);
-
-
+                    if (p.tipoPrecio == "max")
+                    {
+                        numerosMax.Add(p.precio);
+                        fechasMax.Add(p.fecha);
+                        
+                    }else
+                    {
+                        numerosMin.Add(p.precio);
+                        fechasMin.Add(p.fecha);
+                    }
 
                 }
-                busqueda.precios = numeros;
+                busqueda.preciosMax = numerosMax;
+                busqueda.preciosMin = numerosMin;
                 busqueda.resultados = precios;
                 busqueda.maxHistorico = estadisticas.Hits.First().Source;
                 busqueda.minHistorico = estadisticas.Hits.Last().Source;
                 busqueda.actual = ultimo_precio.Hits.First().Source;
-                busqueda.fechas = fechas;
+                busqueda.fechasMax = fechasMax;
+                busqueda.fechasMin = fechasMin;
 
             }
             else
@@ -165,17 +175,28 @@ namespace WebAgroEsi.Controllers
                     p.fecha = hit.Source.fecha;
                     p.tipoPrecio = hit.Source.tipoPrecio;
                     precios.Add(p);
-                    numeros.Add(p.precio);
-                    fechas.Add(p.fecha);
+                    if (p.tipoPrecio == "max")
+                    {
+                        numerosMax.Add(p.precio);
+                        fechasMax.Add(p.fecha);
+
+                    }
+                    else
+                    {
+                        numerosMin.Add(p.precio);
+                        fechasMin.Add(p.fecha);
+                    }
 
 
                 }
                 busqueda.maxHistorico = estadisticas.Hits.First().Source;
                 busqueda.minHistorico = estadisticas.Hits.Last().Source;
                 busqueda.actual = ultimo_precio.Hits.First().Source;
-                busqueda.precios = numeros;
+                busqueda.preciosMax = numerosMax;
+                busqueda.preciosMin = numerosMin;
                 busqueda.resultados = precios;
-                busqueda.fechas = fechas;
+                busqueda.fechasMax = fechasMax;
+                busqueda.fechasMin = fechasMin;
             }
 
 

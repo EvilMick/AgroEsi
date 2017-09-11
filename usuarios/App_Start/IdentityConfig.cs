@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -56,8 +52,8 @@ namespace usuarios
                 RequiredLength = 4,
                 RequireNonLetterOrDigit = false,
                 RequireDigit = false,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequireLowercase = false,
+                RequireUppercase = false,
             };
 
             // Configurar valores predeterminados para bloqueo de usuario

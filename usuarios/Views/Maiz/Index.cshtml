@@ -46,17 +46,17 @@
                 </div>
             </td>
             <td>
-                <div class="editor-label" style="margin-bottom:65px; margin-left:5px">
+                <div class="editor-label" style="margin-bottom:70px; margin-left:5px">
                     <h4>Badajoz @Html.RadioButtonFor(model => model.lonja, "Badajoz")</h4>
                 </div>
             </td>
             <td>
-                <div class="editor-label" style="margin-bottom:65px;">
+                <div class="editor-label" style="margin-bottom:70px;">
                     <h4>Lérida @Html.RadioButtonFor(model => model.lonja, "Lérida")</h4>
                 </div>
             </td>
             <td>
-                <div class="editor-label" style="margin-bottom:65px; margin-left:10px">
+                <div class="editor-label" style="margin-bottom:70px; margin-left:10px">
                     <h4>León @Html.RadioButtonFor(model => model.lonja, "León")</h4>
                 </div>
             </td>
@@ -138,8 +138,8 @@
                 @Html.CreateChart("left", barChart)
             </div>
             <div class="col-md-5">
-                <canvas width="500" height="350" id="center" style="margin-left:45px"></canvas>
-                @Html.CreateChart("center", lineChart)
+                <canvas width="500" height="350" id="right" style="margin-left:40px; margin-bottom:20px"></canvas>
+                @Html.CreateChart("right", lineChart)
             </div>
             @if (Model.estats != null)
             {

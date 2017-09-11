@@ -29,24 +29,21 @@
                     @Html.LabelFor(model => model.campaña)
                 </div>
 
-                <div class="list-inline" style="margin-left:5px">
+                <div class="list-inline" style="margin-left:10px">
                     @Html.DropDownListFor(model => model.campaña, new SelectList(Model.campañasAlbacete, "Value", "Text"))
                 </div>
             </td>
             <td>
-                <div class="editor-label" style="margin-left:5px">
+                <div class="editor-label" style="margin-left:15px">
                     @Html.LabelFor(model => model.mes)
                 </div>
 
-                <div class="list-inline" style="margin-left:5px">
+                <div class="list-inline" style="margin-left:10px">
                     @Html.DropDownListFor(model => model.mes, new SelectList(Model.mesesAño, "Value", "Text"))
                 </div>
             </td>
             <td>
-                <div class="editor-label" style="margin-left:5px">
-                    <label>           </label>
-                </div>
-                <div class="editor-field" style="margin-left:5px">
+                <div class="editor-field" style="margin-left:10px; margin-top:24px">
                     <input name="botonbuscar" type="submit" value="Buscar" class="btn-primary" />
                 </div>
             </td>
@@ -56,12 +53,12 @@
     var barChart = new BarChart();
     barChart.ChartConfiguration.ScaleBeginAtZero = false;
     barChart.ChartConfiguration.ScaleGridLineColor = "rgba(0, 0, 0, 0.3)";
-    barChart.ComplexData.Labels.AddRange(Model.fechas);
+    barChart.ComplexData.Labels.AddRange(Model.fechasMin);
     barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
                              {
                                 new ComplexDataset
                                     {
-                                        Data = Model.precios,
+                                        Data = Model.preciosMin,
                                         FillColor = "rgba(102, 51, 153,1)",
                                         StrokeColor = "rgba(220,220,220,1)",
                                         PointColor = "rgba(220,220,220,1)",
@@ -73,15 +70,25 @@
 
     var lineChart = new LineChart();
     lineChart.ChartConfiguration.ScaleGridLineColor = "rgba(0, 0, 0, 0.3)";
-    lineChart.ComplexData.Labels.AddRange(Model.fechas);
+    lineChart.ComplexData.Labels.AddRange(Model.fechasMax);
     lineChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
                              {
                                 new ComplexDataset
                                     {
-                                        Data = Model.precios,
+                                        Data = Model.preciosMin,
                                         FillColor = "rgba(255, 255, 255, 0)",
                                         StrokeColor = "rgba(0, 0, 0, 1)",
                                         PointColor = "rgba(240, 20, 159,1)",
+                                        PointStrokeColor = "#fff",
+                                        PointHighlightFill = "#fff",
+                                        PointHighlightStroke = "rgba(220,220,220,1)",
+                                    },
+                                new ComplexDataset
+                                    {
+                                        Data = Model.preciosMax,
+                                        FillColor = "rgba(255, 255, 255, 0)",
+                                        StrokeColor = "rgba(0, 0, 0, 1)",
+                                        PointColor = "rgba(20, 119, 240, 1)",
                                         PointStrokeColor = "#fff",
                                         PointHighlightFill = "#fff",
                                         PointHighlightStroke = "rgba(220,220,220,1)",
@@ -112,25 +119,26 @@
                 <h4 class="text-center">Mínimo Histórico</h4>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="col-md-5" style="align-content:center">
-                <h3>Evolución de precios:</h3>
+                <h3>Comparativa de precios:</h3>
+            </div>
+            <div class="col-md-6" style="margin-top:30px">
+                <div class="col-md-2" style="background-color:rgba(240, 20, 159,1); color:white"> <strong>Mínimo</strong> </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2" style="background-color:rgba(20, 119, 240, 1); color:white"> <strong>Máximo</strong> </div>
             </div>
         </div>
         <div class="col-md-8">
-            <div class="col-md-5">
+            <div class="col-md-5" style="margin-left:10px">
                 <canvas width="320" height="350" id="left"></canvas>
-                @if (Model.precios.Count > 1)
-                {
-                    @Html.CreateChart("left", barChart)
-                }
+                @Html.CreateChart("left", barChart)
+
             </div>
-            <div class="col-md-5" style="margin-left:55px">
-                <canvas width="320" height="350" id="center"></canvas>
-                @if (Model.precios.Count > 1)
-                {
-                    @Html.CreateChart("center", lineChart)
-                }
+            <div class="col-md-5" style="margin-left:55px; margin-right:20px">
+                <canvas width="320" height="350" id="right"></canvas>
+                    @Html.CreateChart("right", lineChart)
+               
             </div>
             @if (Model.resultados != null)
             {

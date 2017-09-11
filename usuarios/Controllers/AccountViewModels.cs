@@ -82,8 +82,6 @@ namespace usuarios.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Correo electrónico")]
         public string User { get; set; }
 
         [Required]

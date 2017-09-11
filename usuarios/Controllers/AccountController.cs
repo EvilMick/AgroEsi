@@ -205,7 +205,7 @@ namespace usuarios.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.User, Email = "tecnologias-y-djs@hotmail.com"};
+                var user = new ApplicationUser { UserName = model.User , Email=model.User+"@hotmail.com"};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded && !compruebaRegister(model))
                 {
